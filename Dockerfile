@@ -12,17 +12,24 @@ ENV HOME /home/$USER
 USER root
 
 RUN \
-    apt-get install -y build-essential;
+    apt-get install -y build-essential bowtie2;
+
+RUN \
+    pip install numpy biopython==1.76 && \
+    pip install biom-format==2.1.7
+
+RUN \
+    apt-get remove -y build-essential && \
+    apt-get clean -y && \
+    apt-get autoclean -y;
+
+USER cabana
 
 RUN \
     cd $HOME/tools && \
     wget https://github.com/biobakery/MetaPhlAn/archive/2.8.1.tar.gz && \
     tar xvzf 2.8.1.tar.gz && \
     rm 2.8.1.tar.gz
-
-RUN \
-    pip install numpy biopython==1.76 && \
-    pip install biom-format==2.1.7
 
 # Adds the package to the path for easy access.
 ENV PATH="${HOME}/tools/MetaPhlAn-2.8.1/:${PATH}"
