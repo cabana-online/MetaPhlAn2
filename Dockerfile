@@ -31,6 +31,9 @@ RUN \
     tar xvzf 2.8.1.tar.gz && \
     rm 2.8.1.tar.gz
 
+RUN \
+    conda install -c bioconda krona
+
 # Adds the package to the path for easy access.
 ENV PATH="${HOME}/tools/MetaPhlAn-2.8.1/:${PATH}"
 ENV PATH="${HOME}/tools/MetaPhlAn-2.8.1/utils:${PATH}"
