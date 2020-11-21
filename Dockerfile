@@ -33,6 +33,7 @@ RUN \
 
 # Adds the package to the path for easy access.
 ENV PATH="${HOME}/tools/MetaPhlAn-2.8.1/:${PATH}"
+ENV PATH="${HOME}/tools/MetaPhlAn-2.8.1/utils:${PATH}"
 
 # Entrypoint to keep the container running.
 ENTRYPOINT ["tail", "-f", "/dev/null"]
