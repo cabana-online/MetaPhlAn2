@@ -9,17 +9,23 @@ ARG USER=cabana
 
 ENV HOME /home/$USER
 
+USER root
+
+RUN \
+    apt-get install -y build-essential;
+
 RUN \
     cd $HOME/tools && \
-    wget https://github.com/biobakery/MetaPhlAn/archive/2.7.8.tar.gz && \
-    tar xvzf 2.7.8.tar.gz && \
-    rm 2.7.8.tar.gz
+    wget https://github.com/biobakery/MetaPhlAn/archive/2.8.1.tar.gz && \
+    tar xvzf 2.8.1.tar.gz && \
+    rm 2.8.1.tar.gz
 
 RUN \
-    pip install numpy
+    pip install numpy biopython==1.76 && \
+    pip install biom-format==2.1.7
 
 # Adds the package to the path for easy access.
-ENV PATH="${HOME}/tools/MetaPhlAn-2.7.8/:${PATH}"
+ENV PATH="${HOME}/tools/MetaPhlAn-2.8.1/:${PATH}"
 
 # Entrypoint to keep the container running.
 ENTRYPOINT ["tail", "-f", "/dev/null"]
