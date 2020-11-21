@@ -15,7 +15,7 @@ RUN \
     apt-get install -y build-essential bowtie2;
 
 RUN \
-    pip install numpy biopython==1.76 && \
+    pip install numpy matplotlib==1.5.3 biopython==1.76 && \
     pip install biom-format==2.1.7
 
 RUN \
@@ -29,7 +29,10 @@ RUN \
     cd $HOME/tools && \
     wget https://github.com/biobakery/MetaPhlAn/archive/2.8.1.tar.gz && \
     tar xvzf 2.8.1.tar.gz && \
-    rm 2.8.1.tar.gz
+    rm 2.8.1.tar.gz && \
+    cd MetaPhlAn-2.8.1/utils && \
+    wget https://raw.githubusercontent.com/biobakery/MetaPhlAn/2.8/utils/metaphlan_hclust_heatmap.py && \
+    chmod +x metaphlan_hclust_heatmap.py;
 
 RUN \
     conda install -c bioconda krona
