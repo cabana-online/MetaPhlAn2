@@ -12,6 +12,7 @@ ENV HOME /home/$USER
 USER root
 
 RUN \
+    apt-get update && \
     apt-get install -y build-essential bowtie2;
 
 RUN \
@@ -35,11 +36,16 @@ RUN \
     chmod +x metaphlan_hclust_heatmap.py;
 
 RUN \
+    cd $HOME/tools && \
+    git clone https://github.com/LangilleLab/microbiome_helper.git
+
+RUN \
     conda install -c bioconda krona
 
 # Adds the package to the path for easy access.
 ENV PATH="${HOME}/tools/MetaPhlAn-2.8.1/:${PATH}"
 ENV PATH="${HOME}/tools/MetaPhlAn-2.8.1/utils:${PATH}"
+ENV PATH="${HOME}/tools/microbiome_helper/:${PATH}"
 
 # Entrypoint to keep the container running.
 ENTRYPOINT ["tail", "-f", "/dev/null"]
